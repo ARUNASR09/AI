@@ -1,0 +1,19 @@
+def cleanFiles(currentMem, exMem):
+    array = []
+    arrayoflines = [] 
+    # TODO: Open the currentMem file as in r+ mode
+    with open(memReg,'r+') as currentMem:
+        arrayoflines = list(currentMem.readlines())
+        header = arrayoflines[0]
+        arrayoflines.pop(0)
+        with open(exReg,'a+') as exMem:
+            currentMem.seek(0)
+            currentMem.write(header)
+            for index,line in enumerate(arrayoflines):
+                #print(f"Index of the line {index} and line content {line}")
+                array = line.split()
+                if array[2] == 'no':
+                    exMem.write(line)
+                else:
+                    currentMem.write(line)
+            currentMem.truncate()
